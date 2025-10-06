@@ -2,8 +2,6 @@ import past from '../assets/images/pastIcon.png';
 import present from '../assets/images/presentIcon.png';
 import future from '../assets/images/futureIcon.png';
 
-import '../styling.css';
-
 function Card({ position, title, artist }) {
     return (
         <div className='card' id='song'>

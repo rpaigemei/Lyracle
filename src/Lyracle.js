@@ -3,8 +3,6 @@ import { fetchTracks } from "./api/lastFM";
 import Card from "./components/card";
 import lyracle from "./assets/images/lyracleIcon.png"
 
-import './styling.css'
-
 const apiKEY = process.env.REACT_APP_API_KEY;
 
 function Lyracle() {
