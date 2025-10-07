@@ -1,4 +1,5 @@
 import React, {useState} from "react";
+import { AnimatePresence, motion } from "framer-motion";
 import { fetchTracks } from "./api/lastFM";
 import Card from "./components/card";
 import lyracle from "./assets/images/lyracleIcon.png"
@@ -8,6 +9,7 @@ const apiKEY = process.env.REACT_APP_API_KEY;
 function Lyracle() {
     const [shuffled, setShuffled] = useState(false);
     const [cards, setCards] = useState([]);
+    const [keyChange, setKeyChange] = useState(0);
 
     // shuffle() was developed with the help of AI
 
@@ -56,6 +58,7 @@ function Lyracle() {
             setCards(cardObjs);
 
             setShuffled(true);
+            setKeyChange(k => k + 1);
         }
         catch (err) {
             console.error(err);
@@ -70,17 +73,24 @@ function Lyracle() {
     return (
         <div className='lyracle'>
             {shuffled ? <div className="shuffled">
-                <div className="cards">
-                    {cards.map((c) => (
-                        <div className="result">
-                            <div className="position">
-                                {c.position.toUpperCase()}
-                            </div>
+                    <div className="cards">
+                        {cards.map((c, i) => (
+                            <div className="result">
+                                <div className="position">
+                                    {c.position.toUpperCase()}
+                                </div>
 
-                            <Card position={c.position} title={c.title} artist={c.artist} />
-                        </div>
-                    ))}
-                </div>
+                                <motion.div
+                                    key={`${i} - ${keyChange}`}
+                                    initial={{ opacity: 0, y: 50 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{ duration: 0.8, ease: "easeOut", delay: i*0.2 }}
+                                >
+                                    <Card position={c.position} title={c.title} artist={c.artist} />
+                                </motion.div>
+                            </div>
+                        ))}
+                    </div>
                 <div className="buttons">
                     <div onClick={shuffle} className="button">
                         RE-SHUFFLE
@@ -89,7 +99,6 @@ function Lyracle() {
                         BACK TO HOME
                     </div>
                 </div>
-                
             </div> : <div className="landing">
                 <div className="card" onClick={shuffle} id="middle">
                     <div className="label" id="name">
