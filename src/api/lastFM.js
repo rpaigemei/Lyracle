@@ -32,7 +32,8 @@ export async function fetchTracks(apiKey, limit = 100) {
     return tracks.map((t) => {
         const title = t.name || 'unknown';
         const artist = (t.artist && (t.artist.name || t.artist)) || 'unknown';
+        const link = t.url || null;
 
-        return {title, artist};
+        return {title, artist, link};
     });
 }

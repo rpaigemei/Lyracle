@@ -86,7 +86,7 @@ function Lyracle() {
                                     animate={{ opacity: 1, y: 0 }}
                                     transition={{ duration: 0.8, ease: "easeOut", delay: i*0.2 }}
                                 >
-                                    <Card position={c.position} title={c.title} artist={c.artist} />
+                                    <Card position={c.position} title={c.title} artist={c.artist} link={c.link} />
                                 </motion.div>
                             </div>
                         ))}
